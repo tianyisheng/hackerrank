@@ -15,8 +15,7 @@ public class Solution{
        input=br.readLine();
        int K=Integer.parseInt(input); 
        int numberList[]=new int[number];
-       int index=0;
-       int temp=0;
+       int index=0,temp1=0,temp2=0;
        int result=Integer.MAX_VALUE;
      // System.out.println("get number: "+number);
        while(index<number){
@@ -28,29 +27,21 @@ public class Solution{
            }       
            Arrays.sort(numberList);
          
-         int sum[][]=new int[number][K];    
 
-         for(int i=0;i<number;i++)// sum[i][j] means the sume of n[i]+n[i+1]...n[i+j-1] total j+1 elements.            
-              sum[i][0]=0;
 
-         for(int i=0;i<number;i++)
-            for(int j=1;j<K;j++)
-                   if(i+j<number)
-                          sum[i][j]=sum[i][j-1]+numberList[i+j];   
      
       
            for(int i=0;i<=number-K;i++)
             {
-               temp=0; 
-             System.out.println("begin with: "+numberList[i]); 
-             for(int j=i;j<i+K-1;j++)// sum from i.
+         
+ //            System.out.println("begin with: "+numberList[i]); 
+             for(int k=K-1;k>0;k--)// sum from i.
               {
-                temp+=(sum[j][(i+K)-j-1]-(i+K-j-1)*numberList[j]);
-               System.out.println("sum["+Integer.toString(j)+"]"+"["+Integer.toString(i+K-j-1)+"] -numberList["+Integer.toString(j)+"],where sum[][]="+Integer.toString(sum[j][(i+K)-j-1])+" numberList[j]= "+Integer.toString(numberList[j])); 
-               System.out.println("temp:"+Integer.toString(temp));
+                temp1+=k*numberList[i+k];
+                temp2+=k*numberList[i+K-1-k];
               }
-              if(temp<result)
-                   result=temp;          
+              if(temp1-temp2<result)
+                   result=temp1-temp2;          
             }
         System.out.println(result);
            
