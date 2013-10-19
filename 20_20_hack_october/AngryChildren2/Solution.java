@@ -15,36 +15,42 @@ public class Solution{
        input=br.readLine();
        int K=Integer.parseInt(input); 
        int numberList[]=new int[number];
-       int i=0;
+       int index=0;
        int temp=0;
        int result=Integer.MAX_VALUE;
-//      System.out.println("get number: "+number);
-       while(i<number){
+     // System.out.println("get number: "+number);
+       while(index<number){
 
            input=br.readLine();
            int num1=Integer.parseInt(input);
-           numberList[i]=num1;
-           i++;           
+           numberList[index]=num1;
+           index++;           
            }       
            Arrays.sort(numberList);
-           
-           for( i=0;i<=number-K;i++)
+         
+         int sum[][]=new int[number][K];    
+
+         for(int i=0;i<number;i++)// sum[i][j] means the sume of n[i]+n[i+1]...n[i+j-1] total j+1 elements.            
+              sum[i][0]=0;
+
+         for(int i=0;i<number;i++)
+            for(int j=1;j<K;j++)
+                   if(i+j<number)
+                          sum[i][j]=sum[i][j-1]+numberList[i+j];   
+     
+      
+           for(int i=0;i<=number-K;i++)
             {
-              temp=0;
-           //   System.out.println("for: "+numberList[i]);
-              for(int j=i;j<i+K;j++)// j is the starting index of first digit
-                   {  
-                                       
-                     for(int p=j;p<i+K-1;p++)// k-1
-                   {
-               //  System.out.println(numberList[j]+"-"+numberList[p+1]);
-                temp+=Math.abs(numberList[j]-numberList[p+1]);
-                 }  
-                 } 
-               // System.out.println(); 
-              if(temp<result) {
-                  result=temp;
-                 }
+               temp=0; 
+             System.out.println("begin with: "+numberList[i]); 
+             for(int j=i;j<i+K-1;j++)// sum from i.
+              {
+                temp+=(sum[j][(i+K)-j-1]-(i+K-j-1)*numberList[j]);
+               System.out.println("sum["+Integer.toString(j)+"]"+"["+Integer.toString(i+K-j-1)+"] -numberList["+Integer.toString(j)+"],where sum[][]="+Integer.toString(sum[j][(i+K)-j-1])+" numberList[j]= "+Integer.toString(numberList[j])); 
+               System.out.println("temp:"+Integer.toString(temp));
+              }
+              if(temp<result)
+                   result=temp;          
             }
         System.out.println(result);
            
