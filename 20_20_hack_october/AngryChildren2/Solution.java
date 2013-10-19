@@ -27,14 +27,12 @@ public class Solution{
            }       
            Arrays.sort(numberList);
          
-
-
-     
       
            for(int i=0;i<=number-K;i++)
             {
-         
- //            System.out.println("begin with: "+numberList[i]); 
+             temp1=0;
+             temp2=0; 
+//             System.out.println("begin with: "+numberList[i]); 
              for(int k=K-1;k>0;k--)// sum from i.
               {
                 temp1+=k*numberList[i+k];
